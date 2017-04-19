@@ -4,9 +4,14 @@ import ReactDOM from 'react-dom';
 
 import "./styles/base";
 
+import MandyComp from './components/MandyComp';
+
 function Comp(){
   return (
-      <div>Hi</div>
+      <div>
+        <div>Hi</div>
+        <MandyComp/>
+      </div>
   );
 }
 
