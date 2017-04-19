@@ -1,15 +1,18 @@
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HTMLPlugin = require('html-webpack-plugin');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: ['./app/index.js'],
+  entry: {
+    main: './app/index.jsx'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].[hash].js'
   },
-  modules: {
+  module: {
     rules: [
       {
         enforce: 'pre',
@@ -18,15 +21,19 @@ module.exports = {
           path.resolve(__dirname, 'app')
         ],
         exclude: [
-          path.resolve(__dirname, '/node_modules/'),
+           '/node_modules/',
         ],
         use: [
             'eslint-loader',
-            'babel-loader'
-        ],
-        options: {
-          presets: ['react', 'es2016']
-        }
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                    'react', 'es2016'
+                ]
+              }
+            }
+        ]
       },
       {
         test: /\.scss$/,
@@ -45,15 +52,38 @@ module.exports = {
   },
   devtool: 'source-map',
   target: 'web',
-  externals: ['react'],
   plugins: [
+      /*
+      // file size testing
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static'
+      }),*/
+      // redundant files
+      new webpack.optimize.CommonsChunkPlugin({
+        name: ['main', 'vendor'],
+        children: true,
+        async: true,
+        minChunks: function(module, count){
+          return count >= 2
+        }
+      }),
+      //specifically bundle these large things
+      new webpack.optimize.CommonsChunkPlugin({
+        name: ['react-bundle'],
+        async: 'react',
+        minChunks(module, count) {
+          var context = module.context;
+          var targets = ['react', 'react-dom', 'react-router'];
+          return context && context.indexOf('node_modules') >= 0 && targets.find(t => new RegExp('\\\\' + t + '\\\\', 'i').test(context));
+        },
+      }),
       new HTMLPlugin({
-        template: path.join(__dirname, '/app/index.js'),
+        template: path.join(__dirname, '/app/index.html'),
         filename: 'index.html',
         inject: 'body'
       }),
       new ExtractTextPlugin({
-        filename: '[name].css'
+        filename: '[name].[hash].css'
       })
   ]
 };
