@@ -19,15 +19,18 @@ class EditableTimer extends React.Component {
 
   render() {
     return (
-      <div className="timer">
+      <div>
         <center>
           { this.props.enableEditing ?
             <Timer
               title={this.props.title}
               elapsed={this.props.elapsed}
               start={this.props.start}
+            /> :
+            <TimerForm
+              title={this.props.title}
             />
-            : <TimerForm title={this.props.title} /> }
+          }
         </center>
       </div>
     );

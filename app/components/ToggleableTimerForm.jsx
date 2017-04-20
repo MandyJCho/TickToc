@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TimerForm from './TimerForm';
+
 const propTypes = {
   enableEditing: PropTypes.bool,
 };
@@ -13,11 +15,14 @@ class ToggleableTimerForm extends React.Component {
 
   render() {
     return (
-      <div>Toggle ++++</div>
+      <div>
+        <center>
+          {this.props.enableEditing ? <TimerForm /> : <button>+</button>}
+        </center>
+      </div>
     );
   }
 }
-
 
 ToggleableTimerForm.propTypes = propTypes;
 

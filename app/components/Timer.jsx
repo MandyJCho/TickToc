@@ -15,12 +15,20 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.title}
-        {this.props.elapsed}
-        {this.props.start}
+      <div className="timer">
+        <div>
+          {this.props.title}
+        </div>
+        <div>
+          {this.props.elapsed}
+        </div>
+        <div>
+          {this.props.start}
+        </div>
         <div>
           <button>start</button>
+          <button>edit</button>
+          <button>delete</button>
         </div>
       </div>
     );

@@ -13,10 +13,12 @@ class TimerForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="timer" >
         <input className="form" value={this.props.title} />
-        <button>Update</button>
-        <button>Cancel</button>
+        <div>
+          <button>Update</button>
+          <button>Cancel</button>
+        </div>
       </div>
     );
   }
