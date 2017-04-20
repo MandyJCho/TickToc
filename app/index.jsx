@@ -4,15 +4,6 @@ import ReactDOM from 'react-dom';
 
 import "./styles/base";
 
-import MandyComp from './components/MandyComp';
+import TimerDashboard from './containers/TimerDashboard';
 
-function Comp(){
-  return (
-      <div>
-        <div>Hi</div>
-        <MandyComp/>
-      </div>
-  );
-}
-
-ReactDOM.render(<Comp/>, document.getElementById('app'));
+ReactDOM.render(<TimerDashboard/>, document.getElementById('app'));

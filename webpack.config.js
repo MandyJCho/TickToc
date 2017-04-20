@@ -17,23 +17,16 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js(x)?$/,
-        include: [
-          path.resolve(__dirname, 'app')
-        ],
-        exclude: [
-           '/node_modules/',
-        ],
-        use: [
-            'eslint-loader',
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: [
-                    'react', 'es2016'
-                ]
-              }
-            }
-        ]
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.js(x)?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2016'],
+        },
       },
       {
         test: /\.scss$/,
