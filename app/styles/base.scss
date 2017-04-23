@@ -5,8 +5,10 @@ $gray: lighten(gray, 40%);
   border-radius: 10%;
   border-width: 2px;
   width: 12em;
-  height: 10em;
+  height: 7.5em;
   margin-top: 1em;
+  margin-bottom: 1em;
+  position: relative;
   & > * {
     margin: 1em;
   }
@@ -26,10 +28,34 @@ $gray: lighten(gray, 40%);
 .btn-container {
   display: flex;
   margin: auto 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+
+  & > button {
+    padding-bottom: 2em;
+    line-height: 2em;
+  }
+  & > button:first-of-type{
+    background: #99ffcc;
+    border-color: #99ffcc;
+    border-bottom-left-radius: 25%;
+  }
+
+   & > button:nth-of-type(2){
+     background: #b3ffff;
+     border-color: #b3ffff;
+   }
+
+  & > button:last-of-type {
+    background: #ff9999;
+    border-color: #ff9999;
+    border-bottom-right-radius: 25%;
+  }
 }
 
 button {
   flex-grow: 1;
   margin: 0;
-  height: 1.5em;
+  height: 1.6em;
 }

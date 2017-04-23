@@ -10,7 +10,6 @@ const propTypes = {
 };
 
 function Timer(props) {
-  console.log(props);
   let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
   displayTime = window.helper.convertMsToHMS(displayTime);
 
