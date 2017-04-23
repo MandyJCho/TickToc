@@ -5,19 +5,34 @@ import TimerForm from './TimerForm';
 
 const propTypes = {
   enableEditing: PropTypes.bool,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 class ToggleableTimerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      enableEditing: false,
+    };
+    this.handleEditPermission = this.handleEditPermission.bind(this);
+  }
+
+  handleEditPermission() {
+    this.setState({
+      enableEditing: !this.state.enableEditing,
+    });
+  }
+
+  handleSubmitForm(newProps) {
+    this.props.onSubmitForm(newProps);
+    this.handleEditPermission();
   }
 
   render() {
     return (
       <div>
         <center>
-          {this.props.enableEditing ? <TimerForm /> : <button>+</button>}
+          {this.state.enableEditing ? <TimerForm submitText="Create" onCloseForm={this.handleEditPermission} /> : <button onClick={this.handleEditPermission}>+</button>}
         </center>
       </div>
     );

@@ -6,7 +6,7 @@ $gray: lighten(gray, 40%);
   border-width: 2px;
   width: 12em;
   height: 10em;
-  margin: 1em;
+  margin-top: 1em;
   & > * {
     margin: 1em;
   }
@@ -17,4 +17,19 @@ $gray: lighten(gray, 40%);
   border-radius: 5px;
   width: 70%;
   padding: 5px;
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.btn-container {
+  display: flex;
+  margin: auto 0;
+}
+
+button {
+  flex-grow: 1;
+  margin: 0;
+  height: 1.5em;
 }

@@ -1,27 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import EditableTimer from './EditableTimer';
 
-export default class EditableTimerList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const propTypes = {
+  timers: PropTypes.array,
+};
 
-  render() {
-    return (
-      <div>
-        <EditableTimer
-          title="Practice React"
-          elapsed={123456}
-          start={null}
-        />
-        <EditableTimer
-          title="Make dinner"
-          elapsed={15}
-          start={null}
-          enableEditing={true}
-        />
-      </div>
-    );
-  }
+function EditableTimerList(props) {
+  const timers = props.timers.map(timer => (
+    <EditableTimer
+      title={timer.title}
+      elapsedTime={timer.elapsedTime}
+      startTime={timer.startTime}
+      uuid={timer.uuid}
+    />
+  ));
+
+  return (
+    <div>
+      {timers}
+    </div>
+  );
 }
+
+EditableTimerList.propTypes = propTypes;
+
+export default EditableTimerList;

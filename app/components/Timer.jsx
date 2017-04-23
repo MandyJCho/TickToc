@@ -3,36 +3,32 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  elapsed: PropTypes.number,
-  start: PropTypes.number,
+  elapsedTime: PropTypes.number,
+  startTime: PropTypes.number,
+  uuid: PropTypes.string,
+  onRequestEdit: PropTypes.func.isRequired,
 };
 
-class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function Timer(props) {
+  console.log(props);
+  let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
+  displayTime = window.helper.convertMsToHMS(displayTime);
 
-  render() {
-    return (
-      <div className="timer">
-        <div>
-          {this.props.title}
-        </div>
-        <div>
-          {this.props.elapsed}
-        </div>
-        <div>
-          {this.props.start}
-        </div>
-        <div>
-          <button>start</button>
-          <button>edit</button>
-          <button>delete</button>
-        </div>
+  return (
+    <div className="timer">
+      <div>
+        {props.title}
       </div>
-    );
-  }
+      <div>
+        {displayTime}
+      </div>
+      <div className="btn-container">
+        <button>start</button>
+        <button onClick={props.onRequestEdit}>edit</button>
+        <button>delete</button>
+      </div>
+    </div>
+  );
 }
 
 Timer.propTypes = propTypes;
