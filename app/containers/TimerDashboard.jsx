@@ -14,8 +14,8 @@ export default class TimerDashboard extends React.Component {
       timers: [
         {
           title: 'Practice React',
-          elapsedTime: 12345,
-          startTime: Date.now(),
+          elapsedTime: 1234542,
+          startTime: null,
           uuid: uuid.v4(),
         },
         {
@@ -28,18 +28,33 @@ export default class TimerDashboard extends React.Component {
     };
 
     this.handleSubmitform = this.handleSubmitform.bind(this);
+    this.handleCreateTimer = this.handleCreateTimer.bind(this);
   }
 
   handleSubmitform(nextState) {
+    // update timers array with nextState
     const updatedTimers = this.state.timers.map(
       timer => (timer.uuid === nextState.uuid)
           ? (Object.assign({}, timer, { title: nextState.title })) : timer
     );
 
+    // set state
     this.setState({
       timers: updatedTimers,
     });
   }
+
+  handleCreateTimer(newState){
+    this.setState({
+      timers: Object.assign({}, timers, {
+        title: newState.title,
+        elapsedTime: 0,
+        startTime: Date.now(),
+        uuid: uuid.v4(),
+      }),
+    });
+  }
+
 
   render() {
     return (
@@ -47,10 +62,12 @@ export default class TimerDashboard extends React.Component {
         <TimerList
           timers={this.state.timers}
           onSubmitForm={this.handleSubmitform}
+          onControlTimer={this.handleControlTimer}
         />
         <ToggleableTimerForm
           enableEditing={true}
           onSubmitForm={this.handleSubmitform}
+          onCreateTimer={this.handleCreateTimer}
         />
       </div>
     );
