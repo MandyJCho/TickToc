@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 import React from 'react';
 import uuid from 'uuid';
 
@@ -7,6 +9,7 @@ import ToggleableTimerForm from '../components/ToggleableTimerForm';
 export default class TimerDashboard extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       timers: [
         {
@@ -23,13 +26,32 @@ export default class TimerDashboard extends React.Component {
         },
       ],
     };
+
+    this.handleSubmitform = this.handleSubmitform.bind(this);
+  }
+
+  handleSubmitform(nextState) {
+    const updatedTimers = this.state.timers.map(
+      timer => (timer.uuid === nextState.uuid)
+          ? (Object.assign({}, timer, { title: nextState.title })) : timer
+    );
+
+    this.setState({
+      timers: updatedTimers,
+    });
   }
 
   render() {
     return (
       <div>
-        <TimerList timers={this.state.timers} />
-        <ToggleableTimerForm enableEditing={true} />
+        <TimerList
+          timers={this.state.timers}
+          onSubmitForm={this.handleSubmitform}
+        />
+        <ToggleableTimerForm
+          enableEditing={true}
+          onSubmitForm={this.handleSubmitform}
+        />
       </div>
     );
   }

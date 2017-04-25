@@ -7,11 +7,14 @@ const propTypes = {
   startTime: PropTypes.number,
   uuid: PropTypes.string,
   onRequestEdit: PropTypes.func.isRequired,
+  onControlTimer: PropTypes.func,isRequired,
 };
 
 function Timer(props) {
   let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
   displayTime = window.helper.convertMsToHMS(displayTime);
+
+  const controlTimerText = props.startTime ? 'pause' : 'start';
 
   return (
     <div className="timer">
@@ -22,7 +25,7 @@ function Timer(props) {
         {displayTime}
       </div>
       <div className="btn-container">
-        <button>start</button>
+        <button>{controlTimerText}</button>
         <button onClick={props.onRequestEdit}>edit</button>
         <button>delete</button>
       </div>

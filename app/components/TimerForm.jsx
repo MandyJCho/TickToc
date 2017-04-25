@@ -6,7 +6,7 @@ const propTypes = {
   submitText: PropTypes.string.isRequired,
   uuid: PropTypes.string,
   onCloseForm: PropTypes.func.isRequired,
-  onSubmitForm: PropTypes.func.isRequire,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 class TimerForm extends React.Component {
@@ -18,7 +18,7 @@ class TimerForm extends React.Component {
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
   handleTitleChange(e) {
@@ -27,7 +27,7 @@ class TimerForm extends React.Component {
     });
   }
 
-  handleSubmitUpdate() {
+  handleSubmitForm() {
     this.props.onSubmitForm({
       title: this.state.title,
       uuid: this.props.uuid,
@@ -39,7 +39,7 @@ class TimerForm extends React.Component {
       <div className="timer" >
         <input className="form" value={this.state.title} onChange={this.handleTitleChange} />
         <div className="btn-container">
-          <button onClick={this.handleSubmitUpdate}>{this.props.submitText}</button>
+          <button onClick={this.handleSubmitForm}>{this.props.submitText}</button>
           <button onClick={this.props.onCloseForm}>Cancel</button>
         </div>
       </div>
@@ -48,5 +48,6 @@ class TimerForm extends React.Component {
 }
 
 TimerForm.propTypes = propTypes;
+TimerForm.displayName = 'TimerForm';
 
 export default TimerForm;

@@ -9,7 +9,8 @@
   "globals": {
     "document": true,
     "window": true,
-    "URLSearchParams": true
+    "URLSearchParams": true,
+    "Object": true
   },
   "rules": {
     "no-trailing-spaces": [2, { "skipBlankLines": true }],

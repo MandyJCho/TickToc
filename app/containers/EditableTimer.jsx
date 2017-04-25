@@ -9,6 +9,7 @@ const proptypes = {
   elapsedTime: PropTypes.number,
   startTime: PropTypes.number,
   uuid: PropTypes.string,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 class EditableTimer extends React.Component {
@@ -18,8 +19,10 @@ class EditableTimer extends React.Component {
     this.state = {
       enableEditing: false,
     };
+
     this.handleRequestEdit = this.handleRequestEdit.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
   handleRequestEdit() {
@@ -34,6 +37,11 @@ class EditableTimer extends React.Component {
     });
   }
 
+  handleSubmitForm(nextProps) {
+    this.props.onSubmitForm(nextProps);
+    this.handleCloseForm();
+  }
+
   render() {
     return (
       <div>
@@ -44,6 +52,7 @@ class EditableTimer extends React.Component {
               submitText="Update"
               uuid={this.props.uuid}
               onCloseForm={this.handleCloseForm}
+              onSubmitForm={this.handleSubmitForm}
             /> :
             <Timer
               title={this.props.title}
