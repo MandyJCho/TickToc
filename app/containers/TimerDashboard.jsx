@@ -28,6 +28,7 @@ export default class TimerDashboard extends React.Component {
     };
 
     this.handleSubmitform = this.handleSubmitform.bind(this);
+    this.handleUpdateTimer = this.handleUpdateTimer(this);
     this.handleCreateTimer = this.handleCreateTimer.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
   }
@@ -39,9 +40,12 @@ export default class TimerDashboard extends React.Component {
           ? (Object.assign({}, timer, { title: nextState.title })) : timer
     );
 
-    // set state
+    this.handleUpdateTimer(timers);
+  }
+
+  handleUpdateTimer(timers){
     this.setState({
-      timers: updatedTimers,
+      timers: timers,
     });
   }
 
