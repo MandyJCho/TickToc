@@ -24,7 +24,7 @@ function EditableTimerList(props) {
       elapsedTime={timer.elapsedTime}
       startTime={timer.startTime}
       onSubmitForm={handleSubmitForm.bind(this)}
-      onDeleteTimer={handleDeleteTimer}
+      onDeleteTimer={handleDeleteTimer.bind(this)}
       uuid={timer.uuid}
     />
   ));

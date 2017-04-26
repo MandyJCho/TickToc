@@ -73,12 +73,10 @@ export default class TimerDashboard extends React.Component {
         <TimerList
           timers={this.state.timers}
           onSubmitForm={this.handleSubmitform}
-          onControlTimer={this.handleControlTimer}
+          onDeleteTimer={this.handleDeleteTimer}
         />
         <ToggleableTimerForm
-          enableEditing={true}
           onSubmitForm={this.handleSubmitform}
-          onDeleteTimer={this.handleDeleteTimer}
           onCreateTimer={this.handleCreateTimer}
         />
       </div>

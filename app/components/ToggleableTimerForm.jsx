@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import TimerForm from './TimerForm';
 
 const propTypes = {
-  enableEditing: PropTypes.bool,
   onCreateTimer: PropTypes.func.isRequired,
 };
 
