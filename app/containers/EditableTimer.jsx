@@ -10,6 +10,7 @@ const proptypes = {
   startTime: PropTypes.number,
   uuid: PropTypes.string,
   onSubmitForm: PropTypes.func.isRequired,
+  onDeleteTimer: PropTypes.func.isRequired,
 };
 
 class EditableTimer extends React.Component {
@@ -23,6 +24,7 @@ class EditableTimer extends React.Component {
     this.handleRequestEdit = this.handleRequestEdit.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
   }
 
   handleRequestEdit() {
@@ -40,6 +42,10 @@ class EditableTimer extends React.Component {
   handleSubmitForm(nextProps) {
     this.props.onSubmitForm(nextProps);
     this.handleCloseForm();
+  }
+
+  handleDeleteTimer(uuid) {
+    this.props.onDeleteTimer(uuid);
   }
 
   render() {
@@ -60,6 +66,7 @@ class EditableTimer extends React.Component {
               startTime={this.props.startTime}
               uuid={this.props.uuid}
               onRequestEdit={this.handleRequestEdit}
+              onDeleteTimer={this.handleDeleteTimer}
             />
           }
         </center>
