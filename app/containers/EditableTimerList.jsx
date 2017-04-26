@@ -5,13 +5,17 @@ import EditableTimer from './EditableTimer';
 
 const propTypes = {
   timers: PropTypes.array,
-  onSubmitForm: PropTypes.func,
+  onSubmitForm: PropTypes.func.isRequired,
+  onDeleteTimer: PropTypes.func.isRequired,
 };
-
 
 function EditableTimerList(props) {
   function handleSubmitForm(nextState) {
     props.onSubmitForm(nextState);
+  }
+
+  function handleDeleteTimer(uuid) {
+    props.onDeleteTimer(uuid);
   }
 
   const timers = props.timers.map(timer => (
@@ -20,6 +24,7 @@ function EditableTimerList(props) {
       elapsedTime={timer.elapsedTime}
       startTime={timer.startTime}
       onSubmitForm={handleSubmitForm.bind(this)}
+      onDeleteTimer={handleDeleteTimer}
       uuid={timer.uuid}
     />
   ));

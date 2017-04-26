@@ -5,7 +5,7 @@ import TimerForm from './TimerForm';
 
 const propTypes = {
   enableEditing: PropTypes.bool,
-  onSubmitForm: PropTypes.func.isRequired,
+  onCreateTimer: PropTypes.func.isRequired,
 };
 
 class ToggleableTimerForm extends React.Component {
@@ -25,7 +25,7 @@ class ToggleableTimerForm extends React.Component {
   }
 
   handleSubmitForm(newState) {
-    this.props.onSubmitForm(newState);
+    this.props.onCreateTimer(newState);
     this.handleEditPermission();
   }
 

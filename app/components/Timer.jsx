@@ -7,10 +7,14 @@ const propTypes = {
   startTime: PropTypes.number,
   uuid: PropTypes.string,
   onRequestEdit: PropTypes.func.isRequired,
-  onControlTimer: PropTypes.func,isRequired,
+  onDeleteTimer: PropTypes.func.isRequired,
 };
 
 function Timer(props) {
+  function handleDeleteForm() {
+    props.onDeleteTimer(props.uuid);
+  }
+
   let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
   displayTime = window.helper.convertMsToHMS(displayTime);
 
@@ -27,7 +31,7 @@ function Timer(props) {
       <div className="btn-container">
         <button>{controlTimerText}</button>
         <button onClick={props.onRequestEdit}>edit</button>
-        <button>delete</button>
+        <button onClick={handleDeleteForm}>delete</button>
       </div>
     </div>
   );

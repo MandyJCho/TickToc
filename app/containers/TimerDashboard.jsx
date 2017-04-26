@@ -29,6 +29,7 @@ export default class TimerDashboard extends React.Component {
 
     this.handleSubmitform = this.handleSubmitform.bind(this);
     this.handleCreateTimer = this.handleCreateTimer.bind(this);
+    this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
   }
 
   handleSubmitform(nextState) {
@@ -45,13 +46,23 @@ export default class TimerDashboard extends React.Component {
   }
 
   handleCreateTimer(newState){
+     const updatedTimers = this.state.timers.concat( [{
+      title: newState.title,
+      elapsedTime: 0,
+      startTime: Date.now(),
+      uuid: uuid.v4(),
+    }]);
+
     this.setState({
-      timers: Object.assign({}, timers, {
-        title: newState.title,
-        elapsedTime: 0,
-        startTime: Date.now(),
-        uuid: uuid.v4(),
-      }),
+      timers: updatedTimers,
+    });
+  }
+
+  handleDeleteTimer(uuid){
+    const updatedTimers = this.state.timers.filter((timer) => timer.uuid !== uuid);
+
+    this.setState({
+      timers: updatedTimers,
     });
   }
 
@@ -62,11 +73,10 @@ export default class TimerDashboard extends React.Component {
         <TimerList
           timers={this.state.timers}
           onSubmitForm={this.handleSubmitform}
-          onControlTimer={this.handleControlTimer}
+          onDeleteTimer={this.handleDeleteTimer}
         />
         <ToggleableTimerForm
           enableEditing={true}
-          onSubmitForm={this.handleSubmitform}
           onCreateTimer={this.handleCreateTimer}
         />
       </div>
