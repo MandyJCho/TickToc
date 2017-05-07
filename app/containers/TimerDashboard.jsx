@@ -29,24 +29,35 @@ export default class TimerDashboard extends React.Component {
 
     // CRUD
     this.handleCreateTimer = this.handleCreateTimer.bind(this);
-    this.handleUpdateForm = this.handleUpdateForm.bind(this);
+    this.handleUpdateTimer = this.handleUpdateTimer.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
+
+    // Individual timer changes
+    this.handleIncrementTimer = this.handleUpdateTimer.bind(this);
+
+    // Generic timer updater
+    this.updateTimer = this.updateTimer.bind(this);
   }
 
-  handleUpdateForm(nextState) {
+  /**
+   * updates the title of a timer
+   * @param nextState
+   */
+  handleUpdateTimer(nextState) {
     // update timers array with nextState
-    const updatedTimers = this.state.timers.map(
-      timer => (timer.uuid === nextState.uuid)
-          ? (Object.assign({}, timer, { title: nextState.title })) : timer
-    );
+    const newStateTimers = this.updateTimer({ title: nextState.title });
 
     this.setState({
       timers: updatedTimers,
     });
   }
 
+  /**
+   * creates a new timer
+   * @param newState
+   */
   handleCreateTimer(newState){
-     const updatedTimers = this.state.timers.concat( [{
+     const newStateTimers = this.state.timers.concat( [{
       title: newState.title,
       elapsedTime: 0,
       startTime: Date.now(),
@@ -58,6 +69,10 @@ export default class TimerDashboard extends React.Component {
     });
   }
 
+  /**
+   * deletes a timer
+   * @param uuid
+   */
   handleDeleteTimer(uuid) {
     const updatedTimers = this.state.timers.filter((timer) => timer.uuid !== uuid);
 
@@ -66,8 +81,25 @@ export default class TimerDashboard extends React.Component {
     });
   }
 
-  handleIncrementTimer(uuid){
+  /**
+   * increments the time on each function
+   * @param uuid
+   */
+  handleIncrementTimer(uuid) {
+    const newStateTimers = this.updateTimer()
+  }
 
+  /**
+   * generic timer updater that takes a desired attribute to alter
+   * @param updateValue
+   * @returns {Array}
+   */
+  updateTimer(uuid, updateValue) {
+    // update timers array with nextState
+    return this.state.timers.map(
+      timer => (timer.uuid === uuid)
+        ? (Object.assign({}, timer, updateValue)) : timer
+    );
   }
 
   render() {
@@ -75,11 +107,11 @@ export default class TimerDashboard extends React.Component {
       <div>
         <EditableTimerList
           timers={this.state.timers}
-          onSubmitForm={this.handleUpdateForm}
+          onSubmitForm={this.handleUpdateTimer}
           onDeleteTimer={this.handleDeleteTimer}
         />
         <ToggleableTimerForm
-          onSubmitForm={this.handleUpdateForm}
+          onSubmitForm={this.handleUpdateTimer}
           onCreateTimer={this.handleCreateTimer}
         />
       </div>

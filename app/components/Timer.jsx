@@ -8,33 +8,40 @@ const propTypes = {
   uuid: PropTypes.string,
   onRequestEdit: PropTypes.func.isRequired,
   onDeleteTimer: PropTypes.func.isRequired,
+  onIncrementTimer: PropTypes.func.isRequired,
 };
 
-function Timer(props) {
-  function handleDeleteForm() {
-    props.onDeleteTimer(props.uuid);
+class Timer {
+  handleDeleteForm() {
+    this.props.onDeleteTimer(props.uuid);
   }
 
-  let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
-  displayTime = window.helper.convertMsToHMS(displayTime);
+  function componentDidMount(){
+    this.interval = setInterval(1000, props.onIncrementTimer);
+  }
 
-  const controlTimerText = props.startTime ? 'pause' : 'start';
+  render() {
+    let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
+    displayTime = window.helper.convertMsToHMS(displayTime);
 
-  return (
-    <div className="timer">
-      <div>
-        {props.title}
+    const controlTimerText = props.startTime ? 'pause' : 'start';
+
+    return (
+      <div className="timer">
+        <div>
+          {props.title}
+        </div>
+        <div>
+          {displayTime}
+        </div>
+        <div className="btn-container">
+          <button>{controlTimerText}</button>
+          <button onClick={props.onRequestEdit}>edit</button>
+          <button onClick={handleDeleteForm}>delete</button>
+        </div>
       </div>
-      <div>
-        {displayTime}
-      </div>
-      <div className="btn-container">
-        <button>{controlTimerText}</button>
-        <button onClick={props.onRequestEdit}>edit</button>
-        <button onClick={handleDeleteForm}>delete</button>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 Timer.propTypes = propTypes;
