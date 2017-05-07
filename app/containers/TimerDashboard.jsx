@@ -3,49 +3,45 @@
 import React from 'react';
 import uuid from 'uuid';
 
-import TimerList from './EditableTimerList';
+import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from '../components/ToggleableTimerForm';
 
 export default class TimerDashboard extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(Date.now());
     this.state = {
       timers: [
         {
           title: 'Practice React',
-          elapsedTime: 1234542,
+          elapsedTime: 134542,
           startTime: null,
           uuid: uuid.v4(),
         },
         {
           title: 'Make Dinner',
           elapsedTime: 19495,
-          startTime: 1492979258076,
+          startTime: 1494173395365,
           uuid: uuid.v4(),
         },
       ],
     };
 
-    this.handleSubmitform = this.handleSubmitform.bind(this);
-    this.handleUpdateTimer = this.handleUpdateTimer(this);
+    // CRUD
     this.handleCreateTimer = this.handleCreateTimer.bind(this);
+    this.handleUpdateForm = this.handleUpdateForm.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
   }
 
-  handleSubmitform(nextState) {
+  handleUpdateForm(nextState) {
     // update timers array with nextState
     const updatedTimers = this.state.timers.map(
       timer => (timer.uuid === nextState.uuid)
           ? (Object.assign({}, timer, { title: nextState.title })) : timer
     );
 
-    this.handleUpdateTimer(timers);
-  }
-
-  handleUpdateTimer(timers){
     this.setState({
-      timers: timers,
+      timers: updatedTimers,
     });
   }
 
@@ -70,17 +66,20 @@ export default class TimerDashboard extends React.Component {
     });
   }
 
+  handleIncrementTimer(uuid){
+
+  }
 
   render() {
     return (
       <div>
-        <TimerList
+        <EditableTimerList
           timers={this.state.timers}
-          onSubmitForm={this.handleSubmitform}
+          onSubmitForm={this.handleUpdateForm}
           onDeleteTimer={this.handleDeleteTimer}
         />
         <ToggleableTimerForm
-          onSubmitForm={this.handleSubmitform}
+          onSubmitForm={this.handleUpdateForm}
           onCreateTimer={this.handleCreateTimer}
         />
       </div>
