@@ -32,11 +32,8 @@ export default class TimerDashboard extends React.Component {
     this.handleUpdateTimer = this.handleUpdateTimer.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
 
-    // Individual timer changes
-    this.handleIncrementTimer = this.handleUpdateTimer.bind(this);
-
     // Generic timer updater
-    this.updateTimer = this.updateTimer.bind(this);
+    this.updateTimer = this.updateTimerWithAttribute.bind(this);
   }
 
   /**
@@ -45,7 +42,7 @@ export default class TimerDashboard extends React.Component {
    */
   handleUpdateTimer(nextState) {
     // update timers array with nextState
-    const newStateTimers = this.updateTimer({ title: nextState.title });
+    const newStateTimers = this.updateTimerWithAttribute({ title: nextState.title });
 
     this.setState({
       timers: updatedTimers,
@@ -82,19 +79,11 @@ export default class TimerDashboard extends React.Component {
   }
 
   /**
-   * increments the time on each function
-   * @param uuid
-   */
-  handleIncrementTimer(uuid) {
-    const newStateTimers = this.updateTimer()
-  }
-
-  /**
    * generic timer updater that takes a desired attribute to alter
    * @param updateValue
    * @returns {Array}
    */
-  updateTimer(uuid, updateValue) {
+  updateTimerWithAttribute(uuid, updateValue) {
     // update timers array with nextState
     return this.state.timers.map(
       timer => (timer.uuid === uuid)

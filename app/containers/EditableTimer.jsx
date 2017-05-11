@@ -67,6 +67,7 @@ class EditableTimer extends React.Component {
               uuid={this.props.uuid}
               onRequestEdit={this.handleRequestEdit}
               onDeleteTimer={this.handleDeleteTimer}
+              onSetStartTime={this.handleSetStartTime}
             />
           }
         </center>
