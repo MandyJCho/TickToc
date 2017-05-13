@@ -96,7 +96,7 @@ export default class TimerDashboard extends React.Component {
 
   handleSetStartTime(uuid, newStartTime) {
     const updatedTimers = this.updateTimerWithAttribute(uuid, {startTime: newStartTime});
-
+    
     this.setState({
       timers: updatedTimers,
     });

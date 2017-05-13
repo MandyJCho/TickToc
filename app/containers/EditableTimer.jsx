@@ -11,7 +11,6 @@ const proptypes = {
   uuid: PropTypes.string,
   onSubmitForm: PropTypes.func.isRequired,
   onDeleteTimer: PropTypes.func.isRequired,
-  onIncrementTime: PropTypes.func.isRequired,
   onSetStartTime: PropTypes.func.isRequired,
 };
 
@@ -23,16 +22,11 @@ class EditableTimer extends React.Component {
       enableEditing: false,
     };
 
-    this.handleRequestEdit = this.handleRequestEdit.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
-  }
-
-  handleRequestEdit() {
-    this.setState({
-      enableEditing: true,
-    });
+    this.handleSetStartTime = this.handleSetStartTime.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.handleRequestEdit = this.handleRequestEdit.bind(this);
   }
 
   handleCloseForm() {
@@ -41,15 +35,24 @@ class EditableTimer extends React.Component {
     });
   }
 
-  handleSubmitForm(nextProps) {
-    this.props.onSubmitForm(nextProps);
-    this.handleCloseForm();
-  }
-
   handleDeleteTimer(uuid) {
     this.props.onDeleteTimer(uuid);
   }
 
+  handleRequestEdit() {
+    this.setState({
+      enableEditing: true,
+    });
+  }
+
+  handleSetStartTime(uuid, newStartTime) {
+    this.props.onSetStartTime(uuid, newStartTime);
+  }
+
+  handleSubmitForm(nextProps) {
+    this.props.onSubmitForm(nextProps);
+    this.handleCloseForm();
+  }
 
   render() {
     return (

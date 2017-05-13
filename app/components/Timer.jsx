@@ -8,7 +8,7 @@ const propTypes = {
   uuid: PropTypes.string,
   onRequestEdit: PropTypes.func.isRequired,
   onDeleteTimer: PropTypes.func.isRequired,
-  onControlTimer: PropTypes.func.isRequired,
+  onSetStartTime: PropTypes.func.isRequired,
 };
 
 function Timer(props) {
@@ -19,22 +19,27 @@ function Timer(props) {
     props.onDeleteTimer(props.uuid);
   }
 
+  function handleSetStartTime() {
+    const newStartTime = props.startTime ? null : Date.now();
+    props.onSetStartTime(props.uuid, newStartTime);
+  }
+
   let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
   displayTime = window.helper.convertMsToHMS(displayTime);
 
-  const controlTimerText = this.props.startTime ? 'pause' : 'start';
+  const controlTimerText = props.startTime ? 'pause' : 'start';
 
   return (
     <div className="timer">
       <div>
-        {this.props.title}
+        {props.title}
       </div>
       <div>
         {displayTime}
       </div>
       <div className="btn-container">
-        <button onClick={this.props.onControlTimer}>{controlTimerText}</button>
-        <button onClick={this.props.onRequestEdit}>edit</button>
+        <button onClick={handleSetStartTime}>{controlTimerText}</button>
+        <button onClick={props.onRequestEdit}>edit</button>
         <button onClick={handleDeleteForm}>delete</button>
       </div>
     </div>
