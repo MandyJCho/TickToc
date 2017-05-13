@@ -7,6 +7,7 @@ const propTypes = {
   timers: PropTypes.array,
   onSubmitForm: PropTypes.func.isRequired,
   onDeleteTimer: PropTypes.func.isRequired,
+  onSetStartTime: PropTypes.func.isRequired,
 };
 
 function EditableTimerList(props) {
@@ -26,6 +27,14 @@ function EditableTimerList(props) {
     props.onDeleteTimer(uuid);
   }
 
+  /**
+   * percolates a new startTime to dashboard
+   * @param uuid
+   * @param newStartTime
+   */
+  function handleSetStartTime(uuid, newStartTime) {
+    props.onSetStartTime(uuid, newStartTime);
+  }
 
   // generate new timers
   const timers = props.timers.map(timer => (
@@ -35,6 +44,7 @@ function EditableTimerList(props) {
       startTime={timer.startTime}
       onSubmitForm={handleSubmitForm.bind(this)}
       onDeleteTimer={handleDeleteTimer.bind(this)}
+      onSetStartTime={handleSetStartTime.bind(this)}
       uuid={timer.uuid}
       key={timer.uuid}
     />

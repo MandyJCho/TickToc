@@ -36,7 +36,7 @@ export default class TimerDashboard extends React.Component {
     this.updateTimerWithAttribute = this.updateTimerWithAttribute.bind(this);
 
     // increment time
-    this.handleIncrementTimer = this.handleIncrementTimer.bind(this);
+    this.handleSetStartTime = this.handleSetStartTime.bind(this);
   }
 
   /**
@@ -94,8 +94,12 @@ export default class TimerDashboard extends React.Component {
     );
   }
 
-  handleIncrementTimer(uuid){
-    const updatedTimers = this.updateTimerWithAttribute(uuid, {elapsedTime: elapsedTime})
+  handleSetStartTime(uuid, newStartTime) {
+    const updatedTimers = this.updateTimerWithAttribute(uuid, {startTime: newStartTime});
+
+    this.setState({
+      timers: updatedTimers,
+    });
   }
 
   render() {
@@ -105,6 +109,7 @@ export default class TimerDashboard extends React.Component {
           timers={this.state.timers}
           onSubmitForm={this.handleUpdateTimer}
           onDeleteTimer={this.handleDeleteTimer}
+          onSetStartTime={this.handleSetStartTime}
         />
         <ToggleableTimerForm
           onSubmitForm={this.handleUpdateTimer}
