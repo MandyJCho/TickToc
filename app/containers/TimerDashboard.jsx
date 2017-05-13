@@ -33,7 +33,27 @@ export default class TimerDashboard extends React.Component {
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
 
     // Generic timer updater
-    this.updateTimer = this.updateTimerWithAttribute.bind(this);
+    this.updateTimerWithAttribute = this.updateTimerWithAttribute.bind(this);
+
+    // increment time
+    this.handleIncrementTimer = this.handleIncrementTimer.bind(this);
+  }
+
+  /**
+   * creates a new timer
+   * @param newState
+   */
+  handleCreateTimer(newState){
+    const newStateTimers = this.state.timers.concat( [{
+      title: newState.title,
+      elapsedTime: 0,
+      startTime: Date.now(),
+      uuid: uuid.v4(),
+    }]);
+
+    this.setState({
+      timers: updatedTimers,
+    });
   }
 
   /**
@@ -43,23 +63,6 @@ export default class TimerDashboard extends React.Component {
   handleUpdateTimer(nextState) {
     // update timers array with nextState
     const newStateTimers = this.updateTimerWithAttribute({ title: nextState.title });
-
-    this.setState({
-      timers: updatedTimers,
-    });
-  }
-
-  /**
-   * creates a new timer
-   * @param newState
-   */
-  handleCreateTimer(newState){
-     const newStateTimers = this.state.timers.concat( [{
-      title: newState.title,
-      elapsedTime: 0,
-      startTime: Date.now(),
-      uuid: uuid.v4(),
-    }]);
 
     this.setState({
       timers: updatedTimers,
@@ -89,6 +92,10 @@ export default class TimerDashboard extends React.Component {
       timer => (timer.uuid === uuid)
         ? (Object.assign({}, timer, updateValue)) : timer
     );
+  }
+
+  handleIncrementTimer(uuid){
+    const updatedTimers = this.updateTimerWithAttribute(uuid, {elapsedTime: elapsedTime})
   }
 
   render() {

@@ -8,65 +8,37 @@ const propTypes = {
   uuid: PropTypes.string,
   onRequestEdit: PropTypes.func.isRequired,
   onDeleteTimer: PropTypes.func.isRequired,
-  onSetStartTime: PropTypes.func.isRequired,
+  onControlTimer: PropTypes.func.isRequired,
 };
 
-class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      interval: '',
-    };
-
-    this.handleDeleteForm = this.handleDeleteForm.bind(this);
-    this.handleIncrementTimer = this.handleIncrementTimer.bind(this);
+function Timer(props) {
+  /**
+   * percolates up a delete request to EditableTimer
+   */
+  function handleDeleteForm() {
+    props.onDeleteTimer(props.uuid);
   }
 
-  componentDidMount() {
-    this.state.interval = setInterval(this.handleIncrementTimer, 1000);
-    this.props.onSetStartTime(this.props.uuid);
-  }
+  let displayTime = window.helper.calculateElapsedTime(props.elapsedTime, props.startTime);
+  displayTime = window.helper.convertMsToHMS(displayTime);
 
-  componentWillUnMount() {
-    clearInterval(this.state.interval);
-  }
+  const controlTimerText = this.props.startTime ? 'pause' : 'start';
 
-  handleControlTimer() {
-
-  }
-
-  handleDeleteForm() {
-    this.props.onDeleteTimer(this.props.uuid);
-  }
-
-  handleIncrementTimer(uuid) {
-
-  }
-
-  render() {
-    let displayTime = window.helper.calculateElapsedTime(this.props.elapsedTime,
-                                                            this.props.startTime);
-    displayTime = window.helper.convertMsToHMS(displayTime);
-
-    const controlTimerText = this.props.startTime ? 'pause' : 'start';
-
-    return (
-      <div className="timer">
-        <div>
-          {this.props.title}
-        </div>
-        <div>
-          {displayTime}
-        </div>
-        <div className="btn-container">
-          <button onClick={this.handleControlTimer}>{controlTimerText}</button>
-          <button onClick={this.props.onRequestEdit}>edit</button>
-          <button onClick={this.handleDeleteForm}>delete</button>
-        </div>
+  return (
+    <div className="timer">
+      <div>
+        {this.props.title}
       </div>
-    );
-  }
+      <div>
+        {displayTime}
+      </div>
+      <div className="btn-container">
+        <button onClick={this.props.onControlTimer}>{controlTimerText}</button>
+        <button onClick={this.props.onRequestEdit}>edit</button>
+        <button onClick={handleDeleteForm}>delete</button>
+      </div>
+    </div>
+  );
 }
 
 Timer.propTypes = propTypes;
