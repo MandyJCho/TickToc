@@ -1,4 +1,3 @@
-timer - comp
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -25,20 +24,26 @@ class Timer extends React.Component {
     this.incrementTime = this.incrementTime.bind(this);
   }
 
-  //
+  /**
+   * creates an interval for timers with start times
+   */
   componentDidMount() {
     if (this.props.startTime) {
       this.interval = setInterval(this.incrementTime, 1000);
     }
   }
 
+  /**
+   * clear all intervals before unmounting
+   */
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-
+  /**
+   * increments the time on a timer by 1 second
+   */
   incrementTime() {
-    console.log('state', this.state);
     this.setState({
       elapsedTime: this.state.elapsedTime + 1000,
     });
@@ -67,6 +72,7 @@ class Timer extends React.Component {
       this.interval = setInterval(this.incrementTime, 1000);
     }
 
+    // pass params onto parent
     this.props.onSetStartTime(newStartTime, this.props.uuid);
   }
 
