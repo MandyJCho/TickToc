@@ -9,19 +9,18 @@ import ToggleableTimerForm from '../components/ToggleableTimerForm';
 export default class TimerDashboard extends React.Component {
   constructor(props) {
     super(props);
-    console.log(Date.now());
     this.state = {
       timers: [
         {
           title: 'Practice React',
-          elapsedTime: 134542,
-          startTime: null,
+          elapsedTime: 1454200,
+          startTime: Date.now(),
           uuid: uuid.v4(),
         },
         {
           title: 'Make Dinner',
           elapsedTime: 19495,
-          startTime: 1494173395365,
+          startTime: null,
           uuid: uuid.v4(),
         },
       ],
@@ -31,21 +30,15 @@ export default class TimerDashboard extends React.Component {
     this.handleCreateTimer = this.handleCreateTimer.bind(this);
     this.handleUpdateTimer = this.handleUpdateTimer.bind(this);
     this.handleDeleteTimer = this.handleDeleteTimer.bind(this);
-
-    // Generic timer updater
-    this.updateTimerWithAttribute = this.updateTimerWithAttribute.bind(this);
-
-    // increment time
-    this.handleSetStartTime = this.handleSetStartTime.bind(this);
   }
 
   /**
    * creates a new timer
    * @param newState
    */
-  handleCreateTimer(newState){
-    const newStateTimers = this.state.timers.concat( [{
-      title: newState.title,
+  handleCreateTimer(newTimer) {
+    const updatedTimers = this.state.timers.concat( [{
+      title: newTimer.title,
       elapsedTime: 0,
       startTime: Date.now(),
       uuid: uuid.v4(),
@@ -57,16 +50,18 @@ export default class TimerDashboard extends React.Component {
   }
 
   /**
-   * updates the title of a timer
-   * @param nextState
+   * generic timer updater that takes a desired attribute to alter
+   * @param updateValue
+   * @returns {Array}
    */
-  handleUpdateTimer(nextState) {
-    // update timers array with nextState
-    const newStateTimers = this.updateTimerWithAttribute({ title: nextState.title });
+  handleUpdateTimer(updateValue, uuid) {
+    // update timers array in state with updateValue
+    const updatedTimers =  this.state.timers.map(
+      timer => (timer.uuid === uuid)
+        ? (Object.assign({}, timer, updateValue)) : timer
+    );
 
-    this.setState({
-      timers: updatedTimers,
-    });
+    this.setState({ timers: updatedTimers });
   }
 
   /**
@@ -82,26 +77,9 @@ export default class TimerDashboard extends React.Component {
   }
 
   /**
-   * generic timer updater that takes a desired attribute to alter
-   * @param updateValue
-   * @returns {Array}
+   * Render components
+   * @returns {XML}
    */
-  updateTimerWithAttribute(uuid, updateValue) {
-    // update timers array with nextState
-    return this.state.timers.map(
-      timer => (timer.uuid === uuid)
-        ? (Object.assign({}, timer, updateValue)) : timer
-    );
-  }
-
-  handleSetStartTime(uuid, newStartTime) {
-    const updatedTimers = this.updateTimerWithAttribute(uuid, {startTime: newStartTime});
-    
-    this.setState({
-      timers: updatedTimers,
-    });
-  }
-
   render() {
     return (
       <div>
@@ -109,10 +87,9 @@ export default class TimerDashboard extends React.Component {
           timers={this.state.timers}
           onSubmitForm={this.handleUpdateTimer}
           onDeleteTimer={this.handleDeleteTimer}
-          onSetStartTime={this.handleSetStartTime}
+          onSetStartTime={this.handleUpdateTimer}
         />
         <ToggleableTimerForm
-          onSubmitForm={this.handleUpdateTimer}
           onCreateTimer={this.handleCreateTimer}
         />
       </div>
