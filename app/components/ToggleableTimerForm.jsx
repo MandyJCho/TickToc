@@ -13,8 +13,12 @@ class ToggleableTimerForm extends React.Component {
     this.state = {
       enableEditing: false,
     };
+
+    // toggle edit permissions
     this.handleEditPermission = this.handleEditPermission.bind(this);
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+
+    // percolate changes to parent
+    this.handleCreateTimer = this.handleCreateTimer.bind(this);
   }
 
   handleEditPermission() {
@@ -23,8 +27,8 @@ class ToggleableTimerForm extends React.Component {
     });
   }
 
-  handleSubmitForm(newState) {
-    this.props.onCreateTimer(newState);
+  handleCreateTimer(newTimer) {
+    this.props.onCreateTimer(newTimer);
     this.handleEditPermission();
   }
 
@@ -36,7 +40,7 @@ class ToggleableTimerForm extends React.Component {
             <TimerForm
               submitText="Create"
               onCloseForm={this.handleEditPermission}
-              onSubmitForm={this.handleSubmitForm}
+              onSubmitForm={this.handleCreateTimer}
             /> :
             <button onClick={this.handleEditPermission}>+</button>}
         </center>
