@@ -1,8 +1,9 @@
 window.helper = (function () {
-  function calculateElapsedTime(elapsedTime, startTime) {
-    return (elapsedTime + (Date.now() - startTime));
-  }
-
+  /**
+   * pads time with extra 0's if there are less than 2 significant figures
+   * @param time
+   * @returns {string}
+   */
   function formatTime(time) {
     let intTime = Math.floor(time).toString();
 
@@ -14,6 +15,11 @@ window.helper = (function () {
     return intTime;
   }
 
+  /**
+   * formats elapsed time into HH:MM:SS
+   * @param elapsedTimeInMs
+   * @returns {string}
+   */
   function convertMsToHMS(elapsedTimeInMs) {
     const ms = elapsedTimeInMs;
     const sec = (ms / 1000) % 60;
@@ -24,7 +30,7 @@ window.helper = (function () {
   }
 
   return {
-    calculateElapsedTime,
     convertMsToHMS,
   };
 }());
+
