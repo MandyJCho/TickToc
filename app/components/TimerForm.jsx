@@ -6,7 +6,7 @@ const propTypes = {
   submitText: PropTypes.string.isRequired,
   uuid: PropTypes.string,
   onCloseForm: PropTypes.func.isRequired,
-  onSubmitForm: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func,
 };
 
 class TimerForm extends React.Component {
@@ -28,12 +28,8 @@ class TimerForm extends React.Component {
   }
 
   handleSubmitForm() {
-    this.props.onSubmitForm({
-      title: this.state.title,
-      uuid: this.props.uuid,
-    });
+    this.props.onSubmitForm({ title: this.state.title }, this.props.uuid);
   }
-
 
   render() {
     return (

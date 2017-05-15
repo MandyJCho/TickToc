@@ -15,8 +15,8 @@ function EditableTimerList(props) {
    * percolates new timer name and uuid to parent
    * @param nextState
    */
-  function handleSubmitForm(nextState) {
-    props.onSubmitForm(nextState);
+  function handleSubmitForm(uuid, newTitle) {
+    props.onSubmitForm(uuid, newTitle);
   }
 
   /**
@@ -32,8 +32,8 @@ function EditableTimerList(props) {
    * @param uuid
    * @param newStartTime
    */
-  function handleSetStartTime(uuid, newStartTime) {
-    props.onSetStartTime(uuid, newStartTime);
+  function handleSetStartTime(newStartTime, uuid) {
+    props.onSetStartTime(newStartTime, uuid);
   }
 
   // generate new timers

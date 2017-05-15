@@ -45,12 +45,12 @@ class EditableTimer extends React.Component {
     });
   }
 
-  handleSetStartTime(uuid, newStartTime) {
-    this.props.onSetStartTime(uuid, newStartTime);
+  handleSetStartTime(newStartTime, uuid) {
+    this.props.onSetStartTime(newStartTime, uuid);
   }
 
-  handleSubmitForm(nextProps) {
-    this.props.onSubmitForm(nextProps);
+  handleSubmitForm(newTitle, uuid) {
+    this.props.onSubmitForm(newTitle, uuid);
     this.handleCloseForm();
   }
 
