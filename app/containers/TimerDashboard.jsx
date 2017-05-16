@@ -67,11 +67,10 @@ export default class TimerDashboard extends React.Component {
    * @param uuid
    */
   handleDeleteTimer(uuid) {
-    const updatedTimers = this.state.timers.filter((timer) => timer.uuid !== uuid);
+    const updatedTimers = Object.assign({}, this.state);
+    delete updatedTimers[uuid];
 
-    this.setState({
-      timers: updatedTimers,
-    });
+    this.setState(updatedTimers);
   }
 
   /**
@@ -82,7 +81,7 @@ export default class TimerDashboard extends React.Component {
     return (
       <div>
         <EditableTimerList
-          timers={this.state.timers}
+          timers={this.state}
           onSubmitForm={this.handleUpdateTimer}
           onDeleteTimer={this.handleDeleteTimer}
           onSetStartTime={this.handleUpdateTimer}
