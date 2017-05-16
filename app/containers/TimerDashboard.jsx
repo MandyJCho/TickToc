@@ -1,7 +1,7 @@
 /*eslint-disable */
 
 import React from 'react';
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from '../components/ToggleableTimerForm';
@@ -10,20 +10,18 @@ export default class TimerDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timers: [
-        {
-          title: 'Practice React',
-          elapsedTime: 1454200,
-          startTime: Date.now(),
-          uuid: uuid.v4(),
-        },
-        {
-          title: 'Make Dinner',
-          elapsedTime: 19495,
-          startTime: null,
-          uuid: uuid.v4(),
-        },
-      ],
+      '51e3b57c-e350-4dcf-8a4e-8371725f18de': {
+        title: 'Practice React',
+        elapsedTime: 1454200,
+        startTime: Date.now(),
+        uuid: '51e3b57c-e350-4dcf-8a4e-8371725f18de',
+      },
+      '3fe615bb-616e-4f7c-9c24-7eaa29d50537': {
+        title: 'Make Dinner',
+        elapsedTime: 19495,
+        startTime: null,
+        uuid: '3fe615bb-616e-4f7c-9c24-7eaa29d50537',
+      },
     };
 
     // CRUD
@@ -37,15 +35,15 @@ export default class TimerDashboard extends React.Component {
    * @param newState
    */
   handleCreateTimer(newTimer) {
-    const updatedTimers = this.state.timers.concat( [{
-      title: newTimer.title,
-      elapsedTime: 0,
-      startTime: Date.now(),
-      uuid: uuid.v4(),
-    }]);
+    const newUUID = uuid();
 
     this.setState({
-      timers: updatedTimers,
+      [newUUID]: {
+        title: newTimer.title,
+        elapsedTime: 0,
+        startTime: Date.now(),
+        uuid: newUUID,
+      }
     });
   }
 
