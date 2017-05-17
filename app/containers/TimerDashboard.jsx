@@ -53,13 +53,11 @@ export default class TimerDashboard extends React.Component {
    * @returns {Array}
    */
   handleUpdateTimer(updateValue, uuid) {
-    // update timers array in state with updateValue
-    const updatedTimers =  this.state.timers.map(
-      timer => (timer.uuid === uuid)
-        ? (Object.assign({}, timer, updateValue)) : timer
-    );
+    // Create a deep copy of the specific timer
+    const outdatedTimer =  JSON.parse(JSON.stringify(this.state[uuid]));
+    const updatedTimer = Object.assign({}, outdatedTimer, updateValue);
 
-    this.setState({ timers: updatedTimers });
+    this.setState({ [uuid]: updatedTimer });
   }
 
   /**
