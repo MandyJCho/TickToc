@@ -29,6 +29,7 @@ window.helper = (function () {
     return `${formatTime(hrs)} : ${formatTime(min)} : ${formatTime(sec)}`;
   }
 
+
   return {
     convertMsToHMS,
   };

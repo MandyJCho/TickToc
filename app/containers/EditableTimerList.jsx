@@ -36,23 +36,33 @@ function EditableTimerList(props) {
     props.onSetStartTime(newStartTime, uuid);
   }
 
-  // generate new timers
-  const timers = props.timers.map(timer => (
-    <EditableTimer
-      title={timer.title}
-      elapsedTime={timer.elapsedTime}
-      startTime={timer.startTime}
-      onSubmitForm={handleSubmitForm.bind(this)}
-      onDeleteTimer={handleDeleteTimer.bind(this)}
-      onSetStartTime={handleSetStartTime.bind(this)}
-      uuid={timer.uuid}
-      key={timer.uuid}
-    />
-  ));
+  function renderTimer(timer) {
+    return (
+      <EditableTimer
+        title={timer.title}
+        elapsedTime={timer.elapsedTime}
+        startTime={timer.startTime}
+        onSubmitForm={handleSubmitForm.bind(this)}
+        onDeleteTimer={handleDeleteTimer.bind(this)}
+        onSetStartTime={handleSetStartTime.bind(this)}
+        uuid={timer.uuid}
+        key={timer.uuid}
+      />
+    );
+  }
+
+  // Create an array from timers prop - [{uuid, {timer info}, ...]
+  let timersList = Object.entries(props.timers);
+
+  // generate jsx
+  timersList = timersList.map((unprocessedEntry) => {
+    const [uuid, timer] = unprocessedEntry;
+    return renderTimer(timer);
+  });
 
   return (
     <div>
-      {timers}
+      {timersList}
     </div>
   );
 }
