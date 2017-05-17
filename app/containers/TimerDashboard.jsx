@@ -67,9 +67,11 @@ export default class TimerDashboard extends React.Component {
    * @param uuid
    */
   handleDeleteTimer(uuid) {
-    const updatedTimers = Object.assign({}, this.state);
+    // create a deep copy of state
+    let updatedTimers = JSON.parse(JSON.stringify(this.state));
     delete updatedTimers[uuid];
 
+    // change state
     this.setState(updatedTimers);
   }
 
