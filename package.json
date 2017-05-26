@@ -1,15 +1,16 @@
 {
-  "name": "showtimes",
+  "name": "ticktoc",
   "version": "1.0.0",
-  "description": "React application to find showtimes near you",
+  "description": "React application ",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot",
+    "start": "webpack-dev-server --progress --colors --hot --port 8080",
+    "dev-server": "babel-watch --presets=es2016 server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MandyJCho/Showtimes.git"
+    "url": "git+https://github.com/MandyJCho/TickToc.git"
   },
   "keywords": [
     "react"
@@ -17,12 +18,13 @@
   "author": "MandyJCho",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MandyJCho/Showtimes/issues"
+    "url": "https://github.com/MandyJCho/TickToc/issues"
   },
-  "homepage": "https://github.com/MandyJCho/Showtimes#readme",
+  "homepage": "https://github.com/MandyJCho/TickToc#readme",
   "dependencies": {
     "axios": "^0.16.1",
     "express": "^4.15.3",
+    "pg": "^6.2.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -30,11 +32,14 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-loader": "^6.4.1",
     "babel-preset-es2016": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
     "babel-preset-react": "^6.24.1",
+    "babel-watch": "^2.0.6",
     "css-loader": "^0.28.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",

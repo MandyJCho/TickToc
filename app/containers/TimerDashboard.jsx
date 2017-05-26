@@ -5,9 +5,12 @@ import uuid from 'uuid';
 
 import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from '../components/ToggleableTimerForm';
+import client from '../../client';
 
 export default class TimerDashboard extends React.Component {
   constructor(props) {
+    console.log(client.getTimers());
+
     super(props);
     this.state = {
       timers: [
