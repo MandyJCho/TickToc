@@ -1,8 +1,10 @@
 # node modules
 node_modules
+*.log
 
 # webstorm files
 .idea
+
 
 # configs
 config.js
