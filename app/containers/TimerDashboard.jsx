@@ -5,7 +5,7 @@ import uuid from 'uuid';
 
 import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from '../components/ToggleableTimerForm';
-import client from '../../client';
+import client from '../client';
 
 export default class TimerDashboard extends React.Component {
   constructor(props) {

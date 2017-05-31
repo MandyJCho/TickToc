@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import config from './config';
+import config from '../config';
 
 function getTimers() {
   const uri = `http://localhost:${config.port}`;
