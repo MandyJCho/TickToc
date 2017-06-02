@@ -6,4 +6,4 @@ import "./styles/base";
 
 import TimerDashboard from './containers/TimerDashboard';
 
-ReactDOM.render(<TimerDashboard/>, document.getElementById('app'));
+export default ReactDOM.render(<TimerDashboard/>, document.getElementById('app'));

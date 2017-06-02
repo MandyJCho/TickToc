@@ -2,7 +2,10 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.use('/', require('./index').app)
+.listen(3000);
+
+app.get('/api', (req, res) => {
   res.send('Testing get!');
 });
 
